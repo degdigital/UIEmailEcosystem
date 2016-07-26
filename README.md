@@ -1,6 +1,3 @@
-# UIEmailEcosystem
-*DEG UI Email Team Code Standards, Design Patterns, Frameworks &amp; Tooling*
-
 # UI Email Ecosystem
 *DEG UI Email Code Standards, Design Patterns, Frameworks & Tooling*
 

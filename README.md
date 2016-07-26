@@ -26,7 +26,34 @@
 ## Code Style Guide
 
 ### HTML
-* [Markup Standards here]
+**HTML5 doctype**
+* HTML5 (HTML syntax) is preferred for all HTML documents.
+
+**Formatting & Syntax**
+* Use tabs (4 spaces) for indentation
+* Nested elements should be indented once
+
+     __Bad Formatting__
+    ```html
+    <table cellpadding="0" cellspacing="0">
+                <tr>
+				<td>
+            // ...
+            </td>
+        </tr></table>
+    ```
+
+    __Good Formatting__
+    ```html
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+        	<td>
+            // ...
+        	</td>
+        </tr>
+    </table>
+    ```
+
 * Hybrid Layouts
 
 ### CSS

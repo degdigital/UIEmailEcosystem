@@ -54,7 +54,7 @@
     </table>
     ```
 
-* Hybrid Layouts
+**Hybrid Layouts**
 
 ### CSS
 **Organization**

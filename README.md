@@ -4,19 +4,17 @@
 ## Table of Contents
   1. [Code Style Guide](#code-style-guide)
     - [HTML](#html)
-    - [CSS](#css)
-  2. [Design Patterns & Considerations](#design-patterns--considerations)
-    - [Atomic Design](#atomic-design)
-    - [Email Client Support](#email-client-support)
-    - [Accessibility](#accessibility)
-    - [Performance](#performance)
+    - [CSS Inline Styles](#css-inline-styles)
+    - [CSS Stylesheets](#css-stylesheets)
+  2. [Frameworks](#frameworks)
+    - [Middlemail](#middlemail)
+    - [Project Hubs](#project-hubs)
+  3. [Design Patterns & Considerations](#design-patterns--considerations)
+    - [Modular Design](#modular-design)
     - [Detailed Design Patterns & Anti-Patterns](#detailed-design-patterns--anti-patterns)
-  3. [Frameworks](#frameworks)
-    - [Skeletor](#skeletor)
-    - [Pattern Lab](#pattern-lab)
-  4. [Libraries](#libraries)
-  5. [Tooling](#tooling)
-    - [IDEs/Editors](#ides)
+    - [Email Client Support](#email-client-support)
+  4. [Tooling](#tooling)
+    - [Editors](#editors)
     - [CSS](#css-1)
     - [Task Runners](#task-runners)
     - [Visual Editors](#visual-editors)
@@ -26,18 +24,16 @@
 ## Code Style Guide
 
 ### HTML
-**HTML5 doctype**
-* HTML5 (HTML syntax) is preferred for all HTML documents.
-
 **Formatting & Syntax**
 * Use tabs (4 spaces) for indentation
 * Nested elements should be indented once
+* Don’t omit optional closing tags (e.g. `</tr>`, `</td>`, or `</body>`).
 
      __Bad Formatting__
     ```html
     <table cellpadding="0" cellspacing="0">
                 <tr>
-				<td>
+                <td>
             // ...
             </td>
         </tr></table>
@@ -47,18 +43,37 @@
     ```html
     <table cellpadding="0" cellspacing="0">
         <tr>
-        	<td>
+            <td>
             // ...
-        	</td>
+            </td>
         </tr>
     </table>
     ```
 
-**Hybrid Layouts**
+**HTML5 doctype**
+* HTML5 (HTML syntax) is preferred for all HTML documents.
+* Enforce standards mode where possible for more consistent rendering with this simple doctype at the beginning of every HTML page: `<!DOCTYPE html>`.
 
-### CSS
+**Hybrid Layouts**
+[HYBRID LAYOUT STANDARDS HERE]
+
+### CSS Inline Styles
+When building emails, all baseline styles should be included inline to achieve appropriate rendering across email clients.
+
+[INLINE STYLE STANDARDS & GUIDELINES]
+
+[AVOID DOING THESE THINGS WHEN WRITING INLINE STYLES]
+
+### CSS Stylesheets
+CSS Stylesheets are utilized when an email is built in the traditional responsive manner or as progressive enhancement when needed.
+
+**Sass**
+* DEG utilizes [Sass](http://sass-lang.com/) to process CSS files and aims to write modern and future-friendly CSS based on W3C specifications while avoiding the proprietary syntax of preproccesors whenever possible.
+
+* [Middlemail](https://github.com/degdigital/middlemail/) comes preconfigured with Sass, and will output the compiled CSS into a `<style>` tag in the `<head>` of the HTML file on build, but developers are encouraged to adjust this behavior as the need arises on a per-project basis.
+
 **Organization**
-* CSS should be organized into partials and follow DEG's modified Atomic CSS structure of Basics, Components, Templates, & Utilities. These partials will be processed using PostCSS and the available configuration options in Skeletor.
+* CSS should be organized into logical partials and follow DEG's modified Atomic Email CSS structure of Basics, Components, Templates & Utilities. These partials will be processed using Sass and the available configuration options in Middlemail.
 
     ```
     css
@@ -73,6 +88,8 @@
 
 **Formatting**
 * Use tabs (4 spaces) for indentation
+* Use ID selectors sparingly, if at all
+* Use classes over generic element tags when possible
 * When using multiple selectors in a rule declaration, give each selector its own line
 * When defining multiple properties, give each property its own line
 
@@ -110,46 +127,12 @@
     * __Modifier__: Flags on blocks or elements. Use them to change appearance or behavior.
 * DEG's approach is to follow the general guidelines of BEM and it's syntax, though it is not strictly enforced, which is why it's referred to as Pseudo BEM here and throughout this document. For full documentation on the BEM methodology, reference the [BEM website](http://getbem.com/).
 
-**Variables**
-* Use CSS variables for consistancy and maintainablity of styles.
-* It is recommended that you use variables for color palettes, font properties, & timing functions. Additional variables may be created on an as needed basis.
-* Namespace all variables with `--property-group`.
-* Append a logical and easy to reference modifier to all variations: `-modifier`.
-* If a logical scale can be applied, `-point-scale` can be used as the modifier. If no logical scale can be applied, use logical modifiers i.e. `-light`.
-* Add a line break between different property group types.
-* There are no standardized guidelines for mapping variables to other variables, but it is strongly encouraged that mappings are kept consistant and easy to reference.
-
-    __Bad__
-    ```css
-    --blue: #005da8;
-    --blue2: #00a0dd;
-    --blue3: #acd5f8;
-    --timing: .25s;
-    --othertiming: 1s;
-    ```
-
-     __Good: Logicial Modifiers__
-    ```css
-    --color-blue: #005da8;
-    --color-blue-light: #00a0dd;
-    --color-blue-dark: #acd5f8;
-
-    --timing-fast: .25s;
-    --timing-slow: .1s;
-    ```
-
-     __Good: Point Scale__
-    ```css
-    --color-blue-10: #00a0dd;
-    --color-blue-20: #005da8;
-    --color-blue-30: #acd5f8;
-    ```
-
 **Nested Selectors**
-* Following BEM or pseudo BEM should allow you to avoid nesting in most cases. This creates CSS that is both easier to maintain and smaller in size. When nesting does become needed, it should be kept as shallow as possible. A good code smell is to refactor and break out CSS that requires nesting beyond three levels deep.
+* When nesting is needed, it should be kept as shallow as possible. A good code smell is to refactor and break out CSS that requires nesting beyond three levels deep.
 
 **Breakpoints & Media Queries**
-* __Write Desktop First CSS.__ [Reasoning].
+* __Write Desktop First CSS.__ Due to the inherent nature of email development and support, desktop first media queries should be utilized.
+ __Don’t use device dimensions to determine breakpoints.__ The device landscape is always changing, so today’s values might be moot even just a year down the road. Email is inherently fluid, so it’s our job to develop emails that look and function beautifully on any screen instead of in just a few arbitrary buckets.
 
     __Bad__
 
@@ -178,55 +161,37 @@
         }
     }
     ```
-* __Don’t use device dimensions to determine breakpoints.__ The device landscape is always changing, so today’s values might be moot even just a year down the road. The device landscape is inherently fluid, so it’s our job to create designs that look and function beautifully on any screen instead of in just a few arbitrary buckets.
 
 ## Frameworks
 ### Middlemail
+[MiddleMail](http://degdigital.github.io/MiddleMail/) is a responsive email framework built with DEG's modern email workflow in mind. Middlemail is built on top of the Ruby based [Middleman](https://middlemanapp.com/) static site generator and features:
+* Modular Components
+* Integrated Sass
+* JSON/Yaml Data
+* Grunt tasks for automated build processes
+* Project Hubs
 
-[Middlemail description]
-
-
-### Skeletor
-
-[IS THIS RELEVANT?]
-
-Skeletor is a [Grunt](http://gruntjs.com)-powered, [Pattern Lab](http://patternlab.io)-centric, highly-customizable web project boilerplate and build tool created by the [DEG](http://www.degdigital.com) UI team. Skeletor uses [PostCSS](http://postcss.org) for CSS processing and [JSPM](http://jspm.io)/[SystemJS](https://github.com/systemjs/systemjs) for Javascript package management, module bundling/loading, and transpilation. Full Skeletor documentation is available [here](https://github.com/degdigital/skeletor).
-
-### Pattern Lab
-
-[IS THIS RELEVANT?]
-
-Pattern Lab is a collection of tools to help you create atomic design systems. DEG uses Pattern Lab as a design & development tool, a prototyping & demo tool, and as an interactive style guide deliverable for clients. Although Pattern Lab comes with an out of the box partner starter kit, we have modified this kit to more closely resemble the types of projects we work on and practices we follow. Our modified version of Pattern Lab can be found within [Skeletor](https://github.com/degdigital/skeletor). Pattern Lab specific documentation can be found on the [Pattern Lab website](http://patternlab.io/).
+### Project Hubs
+DEG utilizes the concept of [Project Hubs](https://24ways.org/2013/project-hubs/) as a design & development tool, a prototyping & demo tool, and as an interactive template toolkit deliverable for clients. A basic Project Hub setup is included with Middlemail which you're encouraged to customize based on your specific project needs.
 
 ## Design Patterns & Considerations
 
-### Atomic Design
-[IS THIS RELEVANT?]
+### Modular Design
+The DEG UI Email team encourages the use of modular design for creating design systems and template toolkits. The basic gist of modular design is to break components down into fundamental building blocks that can be duplicated, deleted, or reordered as neccesary on a per send basis.
 
-The DEG UI team encourages the use of the [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design) methodology for creating design systems. The basic gist of atomic design is to break interfaces down into fundamental building blocks and work up from there. Traditional atomic design consists of 5 distinct levels:
-- __Atoms__: Basic building blocks. HTML tags, such as a form label, an input or a button.
-- __Molecules__: Groups of atoms bonded together. Form label, input & button combined together.
-- __Organisms__: Groups of molecules joined together to form a distinct section of an interface.
-- __Templates__: Groups of organisms stitched together to form pages.
-- __Pages__: Specific instances of templates.
+### Hybrid, Responsive or Fluid?
+The DEG UI Email team has a variety of techniques that can be utilized when designing and developing an email. However, because each technique has advantages and disadvantages, we do not default to a single one for every project. Because [every case is different](http://labs.actionrocket.co/hybrid-is-the-answer-is-it-the-right-question) we work to define the approach most suitable to a given projects specific needs.
 
-DEG uses a modified version of these levels to simplify development, tie in better with design processes & deliverables, and to use terminology that is easier for clients to understand. Our version of atomic design consists of 4 dinstinct levels:
-- __Basics__: Basic building blocks. Typography, colors, & basic HTML tags.
-- __Components__: Groups of basics or other components combined together. Components should be nested into parent & child relationships when applicable.
-- __Templates__: Groups of components combined together to create pages.
-- __Pages__: Specific instances of templates.
-
-### Email Client Support
-[Email Client Support guidelines here]
-https://docs.google.com/document/d/1D3vdUmuDUekxD_Lj5rpgvHiLQN_NVI7WuBwG338cq0A/edit
-
-### Performance
-[Email Based Performance guidelines and considerations here]
+### Interactive Email
+DEG fully imbraces the emergence of interactive email. However, we discourage it's use as solely a new & flashy tactic that only email designers and developers will notice or care about. When utlizing interactive techniques, it's vital that a use case is defined that either works to reduce friction or provide a greater user experience than could be achieved without interactivity.
 
 ### Detailed Design Patterns & Anti-Patterns
-Although projects do often present unique challenges, there are certain challenges we see repeated across many projects. Because of this, the DEG UI Email team maintains a set of client facing documentation on best practices for using and implementing common design patterns & anti-patterns including:
-- [Email POVs Here]
-- https://docs.google.com/document/d/1OlLqGrOzDMjBXpd7y6pVR4ChXyp3Z8GCn1PtzjoKiuQ/edit
+Although projects do often present unique challenges, there are certain challenges we see repeated across many projects. Because of this, we maintain the [DEG Email Design Guide](https://docs.google.com/document/d/1OlLqGrOzDMjBXpd7y6pVR4ChXyp3Z8GCn1PtzjoKiuQ/edit) as a set of client facing documentation on best practices for using and implementing common design patterns & anti-patterns.
+
+### Email Client Support
+DEG uses the concept of Graded Email Client Support, which defines the current set of email clients that should receive a verified, usable experience. However, trying to deliver the same "A-grade" experience across all tested email clients isn't cost effective and forces you to design and develop for the lowest common denominator. We support a tiered approach to design, development, and testing that will allow us to deliver the best experience possible to each individual user. We encourage each project to define their own tiers that serve their users and stakeholders best.
+
+For a more detailed explanation and a guide to help determine what email clients to support, view our [Email Client Support Guide](https://docs.google.com/document/d/1D3vdUmuDUekxD_Lj5rpgvHiLQN_NVI7WuBwG338cq0A/edit) on Google Docs.
 
 ## Tooling
 
@@ -234,8 +199,7 @@ Although projects do often present unique challenges, there are certain challeng
 * Sublime Text
 
 ### CSS
-* PostCSS
-* Legacy Projects: Sass/Compass
+* Sass
 
 ### Task Runners
 * Grunt
@@ -244,9 +208,6 @@ Although projects do often present unique challenges, there are certain challeng
 ### Visual Editors
 * Photoshop
 * Illustrator
-
-### Virtual Machines
-* VirtualBox
 
 ### ALM / Version Control
 * JIRA

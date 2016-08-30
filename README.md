@@ -55,6 +55,7 @@
 * Enforce standards mode where possible for more consistent rendering with this simple doctype at the beginning of every HTML page: `<!DOCTYPE html>`.
 
 **Hybrid Layouts**
+
 [HYBRID LAYOUT STANDARDS HERE]
 
 ### CSS Inline Styles
@@ -64,8 +65,8 @@ When building emails, all baseline styles should be included inline to achieve a
 
 [AVOID DOING THESE THINGS WHEN WRITING INLINE STYLES]
 
-### CSS Stylesheets
-CSS Stylesheets are utilized when an email is built in the traditional responsive manner or as progressive enhancement when needed.
+### CSS Embedded Stylesheets
+CSS embedded stylesheets are utilized when an email is built in the traditional responsive manner or as progressive enhancement when needed.
 
 **Sass**
 * DEG utilizes [Sass](http://sass-lang.com/) to process CSS files and aims to write modern and future-friendly CSS based on W3C specifications while avoiding the proprietary syntax of preproccesors whenever possible.
@@ -161,6 +162,12 @@ CSS Stylesheets are utilized when an email is built in the traditional responsiv
         }
     }
     ```
+
+### Device Targeting
+[Device Targeting Stuff Here]
+* External Stylesheets
+* Outlook Conditional Comments
+* Rendering Engine Media Queries
 
 ## Frameworks
 ### Middlemail

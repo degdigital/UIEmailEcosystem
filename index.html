@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>DEG Email Ecosystem by degdigital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">DEG Email Ecosystem</h1>
+      <h2 class="project-tagline">DEG UI Email Team Code Standards, Design Patterns, Frameworks &amp; Tooling</h2>
+      <a href="https://github.com/degdigital/UIEmailEcosystem" class="btn">View on GitHub</a>
+      <a href="https://github.com/degdigital/UIEmailEcosystem/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/degdigital/UIEmailEcosystem/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="ui-email-ecosystem" class="anchor" href="#ui-email-ecosystem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UI Email Ecosystem</h1>
+
+<p><em>DEG UI Email Code Standards, Design Patterns, Frameworks &amp; Tooling</em></p>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ol>
+<li>
+<a href="#code-style-guide">Code Style Guide</a>
+
+<ul>
+<li><a href="#html">HTML</a></li>
+<li><a href="#css-inline-styles">CSS Inline Styles</a></li>
+<li><a href="#css-stylesheets">CSS Stylesheets</a></li>
+</ul>
+</li>
+<li>
+<a href="#frameworks">Frameworks</a>
+
+<ul>
+<li><a href="#middlemail">Middlemail</a></li>
+<li><a href="#project-hubs">Project Hubs</a></li>
+</ul>
+</li>
+<li>
+<a href="#design-patterns--considerations">Design Patterns &amp; Considerations</a>
+
+<ul>
+<li><a href="#modular-design">Modular Design</a></li>
+<li><a href="#detailed-design-patterns--anti-patterns">Detailed Design Patterns &amp; Anti-Patterns</a></li>
+<li><a href="#email-client-support">Email Client Support</a></li>
+</ul>
+</li>
+<li>
+<a href="#tooling">Tooling</a>
+
+<ul>
+<li><a href="#editors">Editors</a></li>
+<li><a href="#css-1">CSS</a></li>
+<li><a href="#task-runners">Task Runners</a></li>
+<li><a href="#visual-editors">Visual Editors</a></li>
+<li><a href="#alm">ALM/Version Control</a></li>
+<li><a href="#testing">Testing</a></li>
+</ul>
+</li>
+</ol>
+
+<h2>
+<a id="code-style-guide" class="anchor" href="#code-style-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code Style Guide</h2>
+
+<h3>
+<a id="html" class="anchor" href="#html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HTML</h3>
+
+<p><strong>Formatting &amp; Syntax</strong></p>
+
+<ul>
+<li>Use tabs (4 spaces) for indentation</li>
+<li>Nested elements should be indented once</li>
+<li>
+<p>Don’t omit optional closing tags (e.g. <code>&lt;/tr&gt;</code>, <code>&lt;/td&gt;</code>, or <code>&lt;/body&gt;</code>).</p>
+
+<p><strong>Bad Formatting</strong></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">table</span> <span class="pl-e">cellpadding</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">cellspacing</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;
+        // ...
+        &lt;/<span class="pl-ent">td</span>&gt;
+    &lt;/<span class="pl-ent">tr</span>&gt;&lt;/<span class="pl-ent">table</span>&gt;</pre></div>
+
+<p><strong>Good Formatting</strong></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">table</span> <span class="pl-e">cellpadding</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">cellspacing</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;
+        // ...
+        &lt;/<span class="pl-ent">td</span>&gt;
+    &lt;/<span class="pl-ent">tr</span>&gt;
+&lt;/<span class="pl-ent">table</span>&gt;</pre></div>
+</li>
+</ul>
+
+<p><strong>HTML5 doctype</strong></p>
+
+<ul>
+<li>HTML5 (HTML syntax) is preferred for all HTML documents.</li>
+<li>Enforce standards mode where possible for more consistent rendering with this simple doctype at the beginning of every HTML page: <code>&lt;!DOCTYPE html&gt;</code>.</li>
+</ul>
+
+<p><strong>Hybrid Layouts</strong></p>
+
+<p>[HYBRID LAYOUT STANDARDS HERE]</p>
+
+<h3>
+<a id="css-inline-styles" class="anchor" href="#css-inline-styles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS Inline Styles</h3>
+
+<p>When building emails, all baseline styles should be included inline to achieve appropriate rendering across email clients.</p>
+
+<p>[INLINE STYLE STANDARDS &amp; GUIDELINES]</p>
+
+<p>[AVOID DOING THESE THINGS WHEN WRITING INLINE STYLES]</p>
+
+<h3>
+<a id="css-embedded-stylesheets" class="anchor" href="#css-embedded-stylesheets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS Embedded Stylesheets</h3>
+
+<p>CSS embedded stylesheets are utilized when an email is built in the traditional responsive manner or as progressive enhancement when needed.</p>
+
+<p><strong>Sass</strong></p>
+
+<ul>
+<li><p>DEG utilizes <a href="http://sass-lang.com/">Sass</a> to process CSS files and aims to write modern and future-friendly CSS based on W3C specifications while avoiding the proprietary syntax of preproccesors whenever possible.</p></li>
+<li><p><a href="https://github.com/degdigital/middlemail/">Middlemail</a> comes preconfigured with Sass, and will output the compiled CSS into a <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> of the HTML file on build, but developers are encouraged to adjust this behavior as the need arises on a per-project basis.</p></li>
+</ul>
+
+<p><strong>Organization</strong></p>
+
+<ul>
+<li>
+<p>CSS should be organized into logical partials and follow DEG's modified Atomic Email CSS structure of Basics, Components, Templates &amp; Utilities. These partials will be processed using Sass and the available configuration options in Middlemail.</p>
+
+<pre><code>css
+|-- basics/
+|   |-- buttons.css
+|   |-- headings.css
+|   |-- ...
+|-- components/
+|-- templates/
+|-- utilities/
+</code></pre>
+</li>
+</ul>
+
+<p><strong>Formatting</strong></p>
+
+<ul>
+<li>Use tabs (4 spaces) for indentation</li>
+<li>Use ID selectors sparingly, if at all</li>
+<li>Use classes over generic element tags when possible</li>
+<li>When using multiple selectors in a rule declaration, give each selector its own line</li>
+<li>
+<p>When defining multiple properties, give each property its own line</p>
+
+<p><strong>Bad Formatting</strong></p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-e">.selector</span>{
+        <span class="pl-c1"><span class="pl-c1">property</span></span>:value; <span class="pl-c1"><span class="pl-c1">property</span></span>:value; }
+    <span class="pl-e">.selector</span>, <span class="pl-e">.selector</span>, <span class="pl-e">.selector</span> {
+        // ...
+    }
+    <span class="pl-e">#id</span> {
+      // ...
+    }</pre></div>
+
+<p><strong>Good Formatting</strong></p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-e">.selector</span> {
+    <span class="pl-c1"><span class="pl-c1">property</span></span>: value;
+    <span class="pl-c1"><span class="pl-c1">property</span></span>: value;
+}
+
+<span class="pl-e">.selector</span>,
+<span class="pl-e">.selector</span>,
+<span class="pl-e">.selector</span> {
+    // ...
+}</pre></div>
+</li>
+</ul>
+
+<p><strong>Pseudo BEM</strong></p>
+
+<ul>
+<li>
+<a href="http://getbem.com/">BEM</a> is a CSS methodology and syntax, that helps achieve reusable components. BEM stands for Block Element Modifier and consists of:
+
+<ul>
+<li>
+<strong>Block</strong>: Standalone entity that is meaningful on its own.</li>
+<li>
+<strong>Element</strong>: Parts of a block and have no standalone meaning. They are semantically tied to its block.</li>
+<li>
+<strong>Modifier</strong>: Flags on blocks or elements. Use them to change appearance or behavior.</li>
+</ul>
+</li>
+<li>DEG's approach is to follow the general guidelines of BEM and it's syntax, though it is not strictly enforced, which is why it's referred to as Pseudo BEM here and throughout this document. For full documentation on the BEM methodology, reference the <a href="http://getbem.com/">BEM website</a>.</li>
+</ul>
+
+<p><strong>Nested Selectors</strong></p>
+
+<ul>
+<li>When nesting is needed, it should be kept as shallow as possible. A good code smell is to refactor and break out CSS that requires nesting beyond three levels deep.</li>
+</ul>
+
+<p><strong>Breakpoints &amp; Media Queries</strong></p>
+
+<ul>
+<li>
+<p><strong>Write Desktop First CSS.</strong> Due to the inherent nature of email development and support, desktop first media queries should be utilized.
+<strong>Don’t use device dimensions to determine breakpoints.</strong> The device landscape is always changing, so today’s values might be moot even just a year down the road. Email is inherently fluid, so it’s our job to develop emails that look and function beautifully on any screen instead of in just a few arbitrary buckets.</p>
+
+<p><strong>Bad</strong></p>
+
+<div class="highlight highlight-source-css"><pre>  <span class="pl-e">.column</span> {
+      <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">block</span>;
+      <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">100<span class="pl-k">%</span></span>;
+  }
+  <span class="pl-k">@media</span> <span class="pl-c1">all</span> <span class="pl-k">and</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">400<span class="pl-k">px</span></span>) {
+      <span class="pl-e">.column</span> {
+          <span class="pl-c1"><span class="pl-c1">display</span></span>: table-cell;
+          <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">50<span class="pl-k">%</span></span>;
+      }
+  }</pre></div>
+
+<p><strong>Good</strong></p>
+
+<div class="highlight highlight-source-css"><pre>  <span class="pl-e">.column</span> {
+      <span class="pl-c1"><span class="pl-c1">display</span></span>: table-cell;
+      <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">50<span class="pl-k">%</span></span>;
+  }
+  <span class="pl-k">@media</span> <span class="pl-c1">all</span> <span class="pl-k">and</span> (<span class="pl-c1">max-width</span>: <span class="pl-c1">400<span class="pl-k">px</span></span>) {
+      <span class="pl-e">.column</span> {
+          <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">block</span>;
+          <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">100<span class="pl-k">%</span></span>;
+      }
+  }</pre></div>
+</li>
+</ul>
+
+<h3>
+<a id="device-targeting" class="anchor" href="#device-targeting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Device Targeting</h3>
+
+<p>[Device Targeting Stuff Here]</p>
+
+<ul>
+<li>External Stylesheets</li>
+<li>Outlook Conditional Comments</li>
+<li>Rendering Engine Media Queries</li>
+</ul>
+
+<h2>
+<a id="frameworks" class="anchor" href="#frameworks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Frameworks</h2>
+
+<h3>
+<a id="middlemail" class="anchor" href="#middlemail" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Middlemail</h3>
+
+<p><a href="http://degdigital.github.io/MiddleMail/">MiddleMail</a> is a responsive email framework built with DEG's modern email workflow in mind. Middlemail is built on top of the Ruby based <a href="https://middlemanapp.com/">Middleman</a> static site generator and features:</p>
+
+<ul>
+<li>Modular Components</li>
+<li>Integrated Sass</li>
+<li>JSON/Yaml Data</li>
+<li>Grunt tasks for automated build processes</li>
+<li>Project Hubs</li>
+</ul>
+
+<h3>
+<a id="project-hubs" class="anchor" href="#project-hubs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Hubs</h3>
+
+<p>DEG utilizes the concept of <a href="https://24ways.org/2013/project-hubs/">Project Hubs</a> as a design &amp; development tool, a prototyping &amp; demo tool, and as an interactive template toolkit deliverable for clients. A basic Project Hub setup is included with Middlemail which you're encouraged to customize based on your specific project needs.</p>
+
+<h2>
+<a id="design-patterns--considerations" class="anchor" href="#design-patterns--considerations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design Patterns &amp; Considerations</h2>
+
+<h3>
+<a id="modular-design" class="anchor" href="#modular-design" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Modular Design</h3>
+
+<p>The DEG UI Email team encourages the use of modular design for creating design systems and template toolkits. The basic gist of modular design is to break components down into fundamental building blocks that can be duplicated, deleted, or reordered as neccesary on a per send basis.</p>
+
+<h3>
+<a id="hybrid-responsive-or-fluid" class="anchor" href="#hybrid-responsive-or-fluid" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hybrid, Responsive or Fluid?</h3>
+
+<p>The DEG UI Email team has a variety of techniques that can be utilized when designing and developing an email. However, because each technique has advantages and disadvantages, we do not default to a single one for every project. Because <a href="http://labs.actionrocket.co/hybrid-is-the-answer-is-it-the-right-question">every case is different</a> we work to define the approach most suitable to a given projects specific needs.</p>
+
+<h3>
+<a id="interactive-email" class="anchor" href="#interactive-email" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive Email</h3>
+
+<p>DEG fully imbraces the emergence of interactive email. However, we discourage it's use as solely a new &amp; flashy tactic that only email designers and developers will notice or care about. When utlizing interactive techniques, it's vital that a use case is defined that either works to reduce friction or provide a greater user experience than could be achieved without interactivity.</p>
+
+<h3>
+<a id="detailed-design-patterns--anti-patterns" class="anchor" href="#detailed-design-patterns--anti-patterns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Detailed Design Patterns &amp; Anti-Patterns</h3>
+
+<p>Although projects do often present unique challenges, there are certain challenges we see repeated across many projects. Because of this, we maintain the <a href="https://docs.google.com/document/d/1OlLqGrOzDMjBXpd7y6pVR4ChXyp3Z8GCn1PtzjoKiuQ/edit">DEG Email Design Guide</a> as a set of client facing documentation on best practices for using and implementing common design patterns &amp; anti-patterns.</p>
+
+<h3>
+<a id="email-client-support" class="anchor" href="#email-client-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Email Client Support</h3>
+
+<p>DEG uses the concept of Graded Email Client Support, which defines the current set of email clients that should receive a verified, usable experience. However, trying to deliver the same "A-grade" experience across all tested email clients isn't cost effective and forces you to design and develop for the lowest common denominator. We support a tiered approach to design, development, and testing that will allow us to deliver the best experience possible to each individual user. We encourage each project to define their own tiers that serve their users and stakeholders best.</p>
+
+<p>For a more detailed explanation and a guide to help determine what email clients to support, view our <a href="https://docs.google.com/document/d/1D3vdUmuDUekxD_Lj5rpgvHiLQN_NVI7WuBwG338cq0A/edit">Email Client Support Guide</a> on Google Docs.</p>
+
+<h2>
+<a id="tooling" class="anchor" href="#tooling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tooling</h2>
+
+<h3>
+<a id="editors" class="anchor" href="#editors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Editors</h3>
+
+<ul>
+<li>Sublime Text</li>
+</ul>
+
+<h3>
+<a id="css" class="anchor" href="#css" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS</h3>
+
+<ul>
+<li>Sass</li>
+</ul>
+
+<h3>
+<a id="task-runners" class="anchor" href="#task-runners" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task Runners</h3>
+
+<ul>
+<li>Grunt</li>
+<li>Legacy Projects: Rake</li>
+</ul>
+
+<h3>
+<a id="visual-editors" class="anchor" href="#visual-editors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Visual Editors</h3>
+
+<ul>
+<li>Photoshop</li>
+<li>Illustrator</li>
+</ul>
+
+<h3>
+<a id="alm--version-control" class="anchor" href="#alm--version-control" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ALM / Version Control</h3>
+
+<ul>
+<li>JIRA</li>
+<li>Kanbanize</li>
+<li>Git</li>
+</ul>
+
+<h3>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h3>
+
+<ul>
+<li>Litmus</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/degdigital/UIEmailEcosystem">DEG Email Ecosystem</a> is maintained by <a href="https://github.com/degdigital">degdigital</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
